@@ -8,7 +8,9 @@ const EnemyForm = (props) => {
       initialValues={{
         combatants: [{ id: generate(), name: "", hp: "", type: "" }],
       }}
-      onSubmit={() => {}}
+      onSubmit={() => {
+        props.updateData("data");
+      }}
     >
       {({ values, handleChange }) => (
         <Form name="combatants">

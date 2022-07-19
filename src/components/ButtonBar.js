@@ -1,13 +1,13 @@
 import React, { useContext } from "react";
 import DataContext from "../DataContext";
 
-function ButtonBar() {
-  const { data } = useContext(DataContext);
+function ButtonBar({ submitForm }) {
+  const { players, enemies } = useContext(DataContext);
   return (
     <div>
       <button
         onClick={() => {
-          console.log(data);
+          console.log(players, enemies);
         }}
       >
         Click me
