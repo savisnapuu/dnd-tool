@@ -1,7 +1,6 @@
-import { FieldArray } from "formik";
 import React from "react";
 
-const PlayerForm = ({ formik, onChange }) => {
+const FormB = ({ formik, onChange }) => {
   return (
     <div className={"form"}>
       <h3>Form B</h3>
@@ -25,4 +24,4 @@ const PlayerForm = ({ formik, onChange }) => {
   );
 };
 
-export default PlayerForm;
+export default FormB;

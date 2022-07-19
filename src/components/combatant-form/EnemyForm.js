@@ -1,86 +1,67 @@
-import { FieldArray } from "formik";
-import React from "react";
 import { TextField } from "@mui/material";
-import { generate } from "shortid";
+import { FieldArray, Form } from "formik";
+import React from "react";
 import { Button } from "@mui/material";
 
-const EnemyForm = ({ formik }) => {
-  const values = formik.values.formA.combatant;
-  console.log(formik.values.formA.combatants);
+const FormA = ({ formik, onChange }) => {
   return (
-    <div className={"form"}>
-      <div>
-        <FieldArray name="formik.values.formA.combatants">
-          {({ push, remove }) => (
-            <div>
-              <Button
-                type="button"
-                onClick={() => {
-                  formik.values.formA.combatants.push({
-                    id: generate(),
-                    name: "teet",
-                    hp: "",
-                  });
-                }}
-              >
-                Add New Field
-              </Button>
-              {formik.values.formA.combatants.map((i, index) => {
-                return (
-                  <div key={i.id}>
-                    <TextField name={i.name} value={i.name}></TextField>
-                  </div>
-                );
-              })}
-              {formik.values.formA.combatants.map((combatant, index) => {
-                return (
-                  <div key={combatant.id}>
-                    <TextField name={combatant.name} value={combatant.name} />
-                    <TextField
-                      name={`combatants[${index}.hp]`}
-                      value={combatant.hp}
-                    />
-                    <Button onClick={() => remove(index)}>x</Button>
-                  </div>
-                );
-              })}
+    <FieldArray name="enemies">
+      {({ push, removem }) => (
+        <div>
+          {formik.values.enemies.map((combatant, index) => {
+            return (
+              <div key={combatant.id}>
+                <TextField
+                  name={combatant.name}
+                  value={combatant.name}
+                  onChange={formik.handleChange}
+                />
+                <TextField
+                  name={combatant.hp}
+                  value={combatant.hp}
+                  onChange={formik.handleChange}
+                />
+              </div>
+            );
+          })}
+          <pre>{JSON.stringify(formik.values.enemies, null, 2)}</pre>
+        </div>
+      )}
+    </FieldArray>
+    /* <div className={"form"}>
+        <h3>Form A</h3>
+        <div>
+          <label>Name </label>
+          <input
+            name="formA.name"
+            value={formik.values.formA.name}
+            onBlur={formik.handleBlur}
+            onChange={formik.handleChange}
+          />
+          {formik.errors.formA && (
+            <div style={{ color: "red" }}>
+              <small>{formik.errors.formA.name}</small>
             </div>
           )}
-        </FieldArray>
-      </div>
-      <h3>Form A</h3>
-      <div>
-        <label>Name </label>
-        <input
-          name="formA.combatant.name"
-          value={values.name}
-          onBlur={formik.handleBlur}
-          onChange={formik.handleChange}
-        />
-        {formik.errors.formA && (
-          <div style={{ color: "red" }}>
-            <small>{formik.errors.formA.name}</small>
-          </div>
-        )}
-      </div>
-      <br />
-      <div>
-        <label>Email </label>
-        <input
-          name="formA.email"
-          value={formik.values.formA.email}
-          onBlur={formik.handleBlur}
-          onChange={formik.handleChange}
-        />
-        {formik.errors.formA && (
-          <div style={{ color: "red" }}>
-            <small>{formik.errors.formA.email}</small>
-          </div>
-        )}
-      </div>
-      <pre>{JSON.stringify(formik.values.formA, null, 2)}</pre>
-    </div>
+        </div>
+        <br />
+        <div>
+          <label>Email </label>
+          <input
+            name="formA.email"
+            value={formik.values.formA.email}
+            onBlur={formik.handleBlur}
+            onChange={formik.handleChange}
+          />
+          {formik.errors.formA && (
+            <div style={{ color: "red" }}>
+              <small>{formik.errors.formA.email}</small>
+            </div>
+          )}
+        </div>
+        <pre>{JSON.stringify(formik.values.formA, null, 2)}</pre>
+      </div> */
   );
 };
 
-export default EnemyForm;
+export default FormA;

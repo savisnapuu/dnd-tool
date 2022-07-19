@@ -1,52 +1,50 @@
 import React from "react";
-import EnemyForm from "./EnemyForm";
-import PlayerForm from "./PlayerForm";
-import { useFormik } from "formik";
+import FormA from "././PlayerForm";
+import FormB from "./EnemyForm";
+import { Form, Formik, useFormik } from "formik";
 import * as Yup from "yup";
 import { generate } from "shortid";
 
-function CombatantForm(props) {
-  const formik = useFormik({
-    initialValues: {
-      formA: {
-        combatant: {
+const validationSchema = Yup.object({
+  formA: Yup.object({
+    name: Yup.string().required("This field is required"),
+    email: Yup.string()
+      .email("Invalid email address")
+      .required("Email is required"),
+  }),
+  formB: Yup.object({
+    phone: Yup.string()
+      .required("This field is required")
+      .min(6, "At least 06 characters"),
+  }),
+});
+
+export default function CombatantForm() {
+  return (
+    <Formik
+      initialValues={{
+        formA: {
           name: "",
           email: "",
         },
-        combatants: [
-          { id: generate(), name: "teet", hp: "", type: props.name },
-          { id: generate(), name: "teet", hp: "", type: props.name },
-        ],
-      },
-      formB: {
-        phone: "",
-      },
-    },
-    validationSchema: Yup.object({
-      formA: Yup.object({
-        name: Yup.string(),
-        email: Yup.string(),
-      }),
-      formB: Yup.object({
-        phone: Yup.string(),
-      }),
-    }),
-    onSubmit: (values) => {
-      console.log(values);
-    },
-  });
-
-  return (
-    <form onSubmit={formik.handleSubmit}>
-      <h1>Hello CodeSandbox</h1>
-      <h2>Start editing to see some magic happen!</h2>
-
-      <EnemyForm formik={formik} />
-      <PlayerForm formik={formik} />
-
-      <button type="submit">Submit</button>
-    </form>
+        formB: {
+          phone: "",
+        },
+        enemies: [{ id: generate(), name: "teet", hp: "5" }],
+      }}
+      onSubmit={(values) => {
+        console.log(values);
+      }}
+    >
+      {(formik) => {
+        return (
+          <Form onSubmit={formik.handleSubmit}>
+            <FormA formik={formik} />
+            <FormB formik={formik} />
+            <button type="submit">Submit</button>
+          </Form>
+        );
+      }}
+    </Formik>
   );
 }
-
-export default CombatantForm;
