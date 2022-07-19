@@ -17,26 +17,38 @@ const validationSchema = Yup.object({
 export default function CombatantForm() {
   return (
     <Formik
+      enableReinitialize
       initialValues={{
         players: [
-          { id: generate(), name: "teet", hp: "5" },
-          { id: generate(), name: "", hp: "" },
+          {
+            id: generate(),
+            name: "",
+            hp: "",
+            init: "",
+            bonus: "",
+            type: "player",
+          },
         ],
         enemies: [
-          { id: generate(), name: "teet", hp: "5" },
-          { id: generate(), name: "tiit", hp: "5" },
+          {
+            id: generate(),
+            name: "",
+            hp: "",
+            init: Math.floor(Math.random() * 20) + 1,
+            bonus: "",
+            type: "enemy",
+          },
         ],
       }}
       onSubmit={(values) => {
         console.log(values);
       }}
-      validationSchema={validationSchema}
     >
       {(formik, handleChange) => {
         return (
           <Form onSubmit={formik.handleSubmit}>
-            <PlayerForm formik={formik} handleChange={handleChange} key={1} />
-            <EnemyForm formik={formik} handleChange={handleChange} key={2} />
+            <PlayerForm formik={formik} handleChange={handleChange} />
+            <EnemyForm formik={formik} handleChange={handleChange} />
             <button type="submit">Submit</button>
           </Form>
         );
