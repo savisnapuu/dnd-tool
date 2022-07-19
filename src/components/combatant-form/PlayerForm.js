@@ -1,27 +1,33 @@
 import React from "react";
+import { FieldArray } from "formik";
+import { TextField } from "@mui/material";
 
-const FormB = ({ formik, onChange }) => {
+const PlayerForm = ({ formik, onChange }) => {
   return (
-    <div className={"form"}>
-      <h3>Form B</h3>
+    <FieldArray name="players">
       <div>
-        <label>Phone number </label>
-        <input
-          name="formB.phone"
-          value={formik.values.formB.phone}
-          onBlur={formik.handleBlur}
-          onChange={formik.handleChange}
-        />
-        {formik.errors.formB && (
-          <div style={{ color: "red" }}>
-            <small>{formik.errors.formB.phone}</small>
-          </div>
-        )}
+        {formik.values.players.map((combatant, index) => {
+          const name = `players[${index}.name]`;
+          const hp = `players[${index}.hp]`;
+          return (
+            <div key={combatant.id}>
+              <TextField
+                name={name}
+                value={combatant.name}
+                onChange={formik.handleChange}
+              />
+              <TextField
+                name={hp}
+                value={combatant.hp}
+                onChange={formik.handleChange}
+              />
+            </div>
+          );
+        })}
+        <pre>{JSON.stringify(formik.values.players, null, 2)}</pre>
       </div>
-
-      <pre>{JSON.stringify(formik.values.formB, null, 2)}</pre>
-    </div>
+    </FieldArray>
   );
 };
 
-export default FormB;
+export default PlayerForm;

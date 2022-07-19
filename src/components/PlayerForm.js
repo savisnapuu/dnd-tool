@@ -14,7 +14,7 @@ const validationSchema = yup.object().shape({
   ),
 });
 
-const PlayerForm = (props) => {
+const PlayerFormm = (props) => {
   const { pushData } = useContext(DataContext);
   return (
     <div>
@@ -79,4 +79,4 @@ const PlayerForm = (props) => {
   );
 };
 
-export default PlayerForm;
+export default PlayerFormm;
