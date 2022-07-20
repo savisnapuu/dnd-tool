@@ -40,6 +40,9 @@ const PlayerForm = ({ formik }) => {
                     name={name}
                     value={combatant.name}
                     onChange={formik.handleChange}
+                    id="standard-required"
+                    label="Name"
+                    variant="standard"
                   />
                   <TextField
                     name={hp}

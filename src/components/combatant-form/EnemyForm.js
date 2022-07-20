@@ -58,11 +58,14 @@ const EnemyForm = ({ formik }) => {
                   />
                   <button
                     type="button"
-                    onClick={(e) => {
-                      combatant.bonus.value = "asd";
+                    onClick={() => {
+                      formik.setFieldValue(
+                        `enemies[${index}.init]`,
+                        `${Math.floor(Math.random() * 20) + 1}`
+                      );
                     }}
                   >
-                    -
+                    Roll
                   </button>
                   <button
                     type="button"
