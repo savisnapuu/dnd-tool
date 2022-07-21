@@ -1,6 +1,6 @@
 import React from "react";
-import { FieldArray } from "formik";
-import { TextField } from "@mui/material";
+import { FieldArray, FastField } from "formik";
+import { TextField, Container, Box } from "@mui/material";
 import { generate } from "shortid";
 
 const PlayerForm = ({ formik }) => {
@@ -8,7 +8,7 @@ const PlayerForm = ({ formik }) => {
     <FieldArray
       name="players"
       render={(arrayHelpers) => (
-        <div>
+        <Container>
           <div>
             <h1>Players</h1>
             <button
@@ -35,41 +35,89 @@ const PlayerForm = ({ formik }) => {
               const init = `players[${index}.init]`;
               const bonus = `players[${index}.bonus]`;
               return (
-                <div key={combatant.id}>
-                  <TextField
-                    name={name}
-                    value={combatant.name}
-                    onChange={formik.handleChange}
-                    id="standard-required"
-                    label="Name"
-                    variant="standard"
-                  />
-                  <TextField
-                    name={hp}
-                    value={combatant.hp}
-                    onChange={formik.handleChange}
-                  />
-                  <TextField
-                    name={init}
-                    value={combatant.init}
-                    onChange={formik.handleChange}
-                  />
-                  <TextField
-                    name={bonus}
-                    value={combatant.bonus}
-                    onChange={formik.handleChange}
-                  />
-                  <button
-                    type="button"
-                    onClick={() => arrayHelpers.remove(index)}
-                  >
-                    -
-                  </button>
-                </div>
+                <Box
+                  key={combatant.id}
+                  sx={{ display: "flex", justifyContent: "space-between" }}
+                >
+                  <FastField name={name}>
+                    {() => {
+                      return (
+                        <TextField
+                          name={name}
+                          value={combatant.name}
+                          onChange={formik.handleChange}
+                          label="Name"
+                          id="standard-basic"
+                          variant="standard"
+                          sx={{
+                            width: 100,
+                            input: { color: "rgb(160, 161, 178)" },
+                          }}
+                          InputLabelProps={{
+                            style: { color: "rgb(160, 161, 178)" },
+                          }}
+                        />
+                      );
+                    }}
+                  </FastField>
+                  <FastField name={hp}>
+                    {() => {
+                      return (
+                        <TextField
+                          name={hp}
+                          value={combatant.hp}
+                          onChange={formik.handleChange}
+                          label="HP"
+                          id="standard-basic"
+                          variant="standard"
+                          sx={{ width: 50 }}
+                        />
+                      );
+                    }}
+                  </FastField>
+                  <FastField name={init}>
+                    {() => {
+                      return (
+                        <TextField
+                          name={init}
+                          value={combatant.init}
+                          onChange={formik.handleChange}
+                          label="Init"
+                          id="standard-basic"
+                          variant="standard"
+                          sx={{ width: 50 }}
+                        />
+                      );
+                    }}
+                  </FastField>
+                  <FastField name={bonus}>
+                    {() => {
+                      return (
+                        <TextField
+                          name={bonus}
+                          value={combatant.bonus}
+                          onChange={formik.handleChange}
+                          label="Bonus"
+                          id="standard-basic"
+                          variant="standard"
+                          sx={{ width: 50 }}
+                        />
+                      );
+                    }}
+                  </FastField>
+                  <Box>
+                    <button
+                      type="button"
+                      onClick={() => arrayHelpers.remove(index)}
+                    >
+                      -
+                    </button>
+                  </Box>
+                </Box>
               );
             })}
           </div>
-        </div>
+        </Container>
       )}
     />
   );

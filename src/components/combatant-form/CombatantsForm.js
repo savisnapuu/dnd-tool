@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import PlayerForm from "././PlayerForm";
 import EnemyForm from "./EnemyForm";
-import { Form, Formik, useFormik } from "formik";
+import { Form, Formik } from "formik";
 import * as Yup from "yup";
 import { generate } from "shortid";
+import { Container } from "@mui/system";
+import DataContext from "../../DataContext";
+import { Box, Button } from "@mui/material";
 
 const validationSchema = Yup.object({
   players: Yup.array().of(
@@ -15,9 +18,9 @@ const validationSchema = Yup.object({
 });
 
 export default function CombatantForm() {
+  const { pushData } = useContext(DataContext);
   return (
     <Formik
-      enableReinitialize
       initialValues={{
         players: [
           {
@@ -40,17 +43,38 @@ export default function CombatantForm() {
           },
         ],
       }}
-      onSubmit={(values) => {
-        console.log(values);
+      onSubmit={(values, e) => {
+        const trr = [...values.enemies, ...values.players];
+        const sortedcombatantData = trr.sort((a, b) => {
+          return b.init - a.init;
+        });
+        pushData(sortedcombatantData);
+        console.log(sortedcombatantData);
       }}
     >
       {(formik, handleChange) => {
         return (
-          <Form onSubmit={formik.handleSubmit}>
-            <PlayerForm formik={formik} handleChange={handleChange} />
-            <EnemyForm formik={formik} handleChange={handleChange} />
-            <button type="submit">Submit</button>
-          </Form>
+          <Container
+            maxWidth={false}
+            sx={{ maxWidth: 800, backgroundColor: "#252731" }}
+          >
+            <Form onSubmit={formik.handleSubmit}>
+              <Container
+                sx={{
+                  display: "flex",
+                  width: 1,
+                  maxWidth: 500,
+                  flexDirection: "row",
+                }}
+              >
+                <PlayerForm formik={formik} handleChange={handleChange} />
+                <EnemyForm formik={formik} handleChange={handleChange} />
+              </Container>
+              <Button sx={{ backgroundColor: "#252d38" }} type="submit">
+                Submit
+              </Button>
+            </Form>
+          </Container>
         );
       }}
     </Formik>

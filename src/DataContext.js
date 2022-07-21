@@ -4,21 +4,14 @@ import { generate } from "shortid";
 const DataContext = createContext();
 
 export function DataProvider({ children }) {
-  const [players, setPlayers] = useState({});
-  const [enemies, setEnemies] = useState({});
+  const [data, setData] = useState([]);
 
-  const pushPlayers = (values) => {
-    setPlayers(values);
-  };
-
-  const pushEnemies = (values) => {
-    setEnemies(values);
+  const pushData = (values) => {
+    setData(values);
   };
 
   return (
-    <DataContext.Provider
-      value={{ players, pushPlayers, enemies, pushEnemies }}
-    >
+    <DataContext.Provider value={{ pushData, data }}>
       {children}
     </DataContext.Provider>
   );
