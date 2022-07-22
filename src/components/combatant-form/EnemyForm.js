@@ -1,9 +1,10 @@
 import React from "react";
 import { FastField, FieldArray } from "formik";
-import { TextField, Container, Box } from "@mui/material";
+import { TextField, Container, Box, Button } from "@mui/material";
 import { generate } from "shortid";
 import CasinoIcon from "@mui/icons-material/Casino";
-import { Casino } from "@mui/icons-material";
+import { IconButton } from "@mui/material";
+import RemoveIcon from "@mui/icons-material/Remove";
 
 const EnemyForm = ({ formik }) => {
   return (
@@ -118,12 +119,13 @@ const EnemyForm = ({ formik }) => {
                       </button>
                     </div>
                     <div>
-                      <button
-                        type="button"
+                      <Button
+                        color="error"
+                        variant="contained"
                         onClick={() => arrayHelpers.remove(index)}
                       >
-                        -
-                      </button>
+                        <RemoveIcon />
+                      </Button>
                     </div>
                   </Box>
                 </Box>

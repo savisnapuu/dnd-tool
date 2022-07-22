@@ -70,7 +70,7 @@ export default function CombatantForm() {
                 <PlayerForm formik={formik} handleChange={handleChange} />
                 <EnemyForm formik={formik} handleChange={handleChange} />
               </Container>
-              <Button sx={{ backgroundColor: "#252d38" }} type="submit">
+              <Button color="primary" variant="contained" type="submit">
                 Submit
               </Button>
             </Form>
